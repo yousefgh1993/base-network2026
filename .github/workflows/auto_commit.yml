@@ -1,0 +1,25 @@
+name: Auto Commit Generator
+
+on:
+  workflow_dispatch: # این گزینه به شما اجازه می‌دهد دکمه اجرای دستی داشته باشید
+
+jobs:
+  make-commits:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Run 100 Commits
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        for i in {1..100}
+        do
+           echo "Base Guild Commit $i" >> activity_log.txt
+           git add activity_log.txt
+           git commit -m "Base Guild Verification - Commit $i"
+        done
+        
+        git push
